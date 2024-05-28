@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+	<title>Collision Map Generator</title>
+</head>
+<body>
+	<div class="top-bar">
+		<input type="number" id="columns" value="5" min="1" placeholder="X">
+		<input type="number" id="rows" value="5" min="1" placeholder="Y">
+		<button class="btn outline-bl" onclick="generateMap(0);"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Generate Map</button>
+		<button class="btn outline-ye" onclick="downloadMap()"><i class="bi bi-floppy"></i>&nbsp;&nbsp;Save Map</button>
+	</div>
+	<div id="mapContainer"></div>
+	<script src="mapGenerator.js"></script>
+	<link rel="stylesheet" type="text/css" href="checkboxes.css" />
+
+	<div id="modal_generate" class="modal">
+		<div class="modal-content">
+			<p><b><i class="bi bi-bounding-box-circles"></i>&nbsp;&nbsp;&nbsp;Create new map?</b></p>
+			<p>Generating a new map will erase your current map and you will lose your current progress..</p>
+			<p>
+				<button class="btn outline-bl" onclick="document.getElementById('modal_generate').style.display = 'none';"><i class="bi bi-caret-left"></i>&nbsp;Cancel&nbsp;</button>
+				<button class="btn outline-ye" onclick="generateMap(1);"><i class="bi bi-check-square"></i>&nbsp;&nbsp;Generate Map</button>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

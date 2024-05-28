@@ -1,0 +1,115 @@
+body {
+	padding: 0;
+	margin: 0;
+	background-color: #111;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-bar {
+	padding: 8px 8px;
+	background-color: #222;
+}
+
+table {
+	color: white;
+}
+
+.top-bar input[type="number"] {
+	max-width: 30px;
+	padding: 10px 8px; 
+	outline: none;
+	border-radius: 0.25rem;
+	color: #ccc;
+	background-color: #282828;
+	border: 1px solid #111;
+}
+
+.btn {
+	border-radius: 0.25rem;
+	background-color: transparent;
+	cursor: pointer;
+	background-image: none;
+	font-size: 1rem;
+	padding: 8px 8px; 
+	outline: none;
+}
+
+.outline-bl {
+	color: #bbb;
+	border: 1px solid #bbb;
+}
+
+.outline-bl:hover {
+	color: #222;
+	background-color: #bbb;
+}
+
+.outline-ye {
+	color: #dc3545;
+	border: 1px solid #dc3545;
+}
+
+.outline-ye:hover {
+	color: white;
+	background-color: #dc3545;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#mapContainer {
+	overflow: auto;
+	line-height: 0;
+	margin: 16px;
+}
+
+#mapContainer input[type="checkbox"] {
+	width: 36px;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	appearance: none;
+	outline: none;
+	cursor: pointer;
+	background-color: #6b8a53;
+}
+
+#mapContainer div {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-flow: row nowrap;
+	overflow-x: auto;
+}
+
+#mapContainer input[type="checkbox"]:checked {
+  background-color: #8a5353;
+}
+
+/* Modal */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.3);
+}
+
+.modal-content {
+  background-color: #222;
+  margin: 15% auto;
+  padding: 4px 18px;
+  border: 1px solid #000;
+  color: #ccc;
+  width: 18%;
+  border-radius: 0.25rem;
+}
