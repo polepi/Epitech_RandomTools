@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--
+Author: Pol Canals Tolo
+Project: MyRadar
+Org: Epitech
+Licence: MIT
+Desc:
+Generates a text file with data to use in Epitech's "my_radar" project
+from set parametres
+-->
+<html>
+<head>
+	<title>my_radar data generator</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		body {
+			padding: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		input[type="number"], input[type="text"] {
+			padding: 8px 12px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			margin-bottom: 20px;
+			width: 60px;
+			outline: none;
+		}
+		label {
+			margin-bottom: 8px;
+			display: block;
+		}
+		.row {
+			display: flex;
+			flex-wrap: wrap;
+			margin: -16px;
+		}
+		.col {
+			flex: 0.15;
+			padding: 0 36px;
+		}
+		.col-25 {
+			flex: 0;
+			padding: 0 16px;
+		}
+		.cont {
+			padding: 0 16px;
+		}
+		.btn {
+			color: #fff;
+			padding: 9px 16px;
+			cursor: pointer;
+			border: none;
+			border-radius: 3px;
+			background-color: #333;
+		}
+		.btn:hover {
+			opacity: 0.6;
+		}
+		textarea {
+			resize: none;
+			width: 30%;
+			height: 400px;
+			background-color: #fff;
+			border: 1px solid #ddd;
+			outline: none;
+			border-radius: 3px;
+		}
+		.out {
+			padding: 8px 16px;
+			display:none;
+			background-color: #f1f1f1;
+			border-radius: 3px;
+		}
+	</style>
+</head>
+<body>
+	<div class="cont">
+		<h3><i class="fa fa-sliders"></i>&nbsp;&nbsp;General</h3>
+		<label for="screenWidth">Screen Width:</label>
+		<input type="number" id="screenWidth" value="1920">
+		x
+		<input type="number" id="screenHeight" value="1080">
+	</div>
+	<div class="row">
+		<div class="col" style="border-right: 1px dashed #ccc;">
+			<h3><i class="fa fa-plane"></i>&nbsp;&nbsp;&nbsp;Planes</h3>
+			<label for="numPlanes">Number of Planes:</label>
+			<input type="number" id="numPlanes" min="1" value="3">
+			<div class="row" style="margin-bottom:2px;margin-top:2px;">
+				<div class="col-25">
+					<label for="minSpeed">Min Speed:</label>
+					<input type="number" id="minSpeed" value="2">
+				</div>
+				<div class="col-25">
+					<label for="maxSpeed">Max Speed:</label>
+					<input type="number" id="maxSpeed" value="10">
+				</div>
+			</div>
+			<label for="maxOffset">Max Offset:</label>
+			<input type="number" id="maxOffset" value="10">
+		</div>
+		<div class="col">
+			<h3><i class="fa fa-building-o"></i>&nbsp;&nbsp;&nbsp;Towers</h3>
+			<label for="numTowers">Number of Towers:</label>
+			<input type="number" id="numTowers" min="1" value="3">
+			<label for="minRadius">Min Tower Radius:</label>
+			<input type="number" id="minRadius" value="10">
+			<label for="maxRadius">Max Tower Radius:</label>
+			<input type="number" id="maxRadius" value="50">
+		</div>
+	</div>
+	<br><br>
+	<div class="cont">
+		<button class="btn" onclick="generateData()">Generate Data&nbsp;&nbsp;<i class="fa fa-angle-double-right"></i></button>
+	</div>
+	<br>
+	<div id="divFilePreview" class="out">
+		<h3>Output</h3>
+		<label for="fileName">File Name</label>
+		<input type="text" id="fileName" value="data.txt">
+		<button class="btn" onclick="download()"><i class="fa fa-folder-open-o"></i>&nbsp;&nbsp;Download file</button> <button class="btn" onclick="copyText()"><i class="fa fa-copy"></i>&nbsp;&nbsp;Copy text</button>
+		
+		<label for="fileContPreview">File Content</label>
+		<textarea id="fileContPreview"></textarea>
+	</div>
+	<script>
+    function generateData() {
+		const numPlanes = document.getElementById('numPlanes').value;
+		const numTowers = document.getElementById('numTowers').value;
+		const screenWidth = document.getElementById('screenWidth').value;
+		const screenHeight = document.getElementById('screenHeight').value;
+		const minSpeed = document.getElementById('minSpeed').value;
+		const maxSpeed = document.getElementById('maxSpeed').value;
+		const maxOffset = document.getElementById('maxOffset').value;
+		const minRadius = document.getElementById('minRadius').value;
+		const maxRadius = document.getElementById('maxRadius').value;
+		let planesData = '';
+		let towersData = '';
+      
+		for (let i = 0; i < numPlanes; i++) {
+			const startX = Math.floor(Math.random() * screenWidth);
+			const startY = Math.floor(Math.random() * screenHeight);
+			const endX = Math.floor(Math.random() * screenWidth);
+			const endY = Math.floor(Math.random() * screenHeight);
+			const speed = Math.floor(Math.random() * (maxSpeed - minSpeed + 1)) + parseInt(minSpeed);
+			const offset = Math.floor(Math.random() * (parseInt(maxOffset) + 1)); // Adjusted here
+			
+			planesData += `A ${startX} ${startY} ${endX} ${endY} ${speed} ${offset}\n`;
+		}
+      
+		for (let i = 0; i < numTowers; i++) {
+			const posX = Math.floor(Math.random() * screenWidth);
+			const posY = Math.floor(Math.random() * screenHeight);
+			const radius = Math.floor(Math.random() * (maxRadius - minRadius + 1)) + parseInt(minRadius);
+        
+			towersData += `T ${posX} ${posY} ${radius}\n`;
+		}
+      
+		const textFileContent = planesData.trim() + '\n' + towersData.trim();
+		document.getElementById("fileContPreview").value = textFileContent;
+		document.getElementById("divFilePreview").style.display = "block";
+	}
+    
+    function download() {
+		const element = document.createElement('a');
+		const text = document.getElementById("fileContPreview").value;
+		const filename = document.getElementById('fileName').value;
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		element.setAttribute('download', filename);
+		element.style.display = 'none';
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
+    }
+	
+	function copyText() {
+		var copyText = document.getElementById("fileContPreview");
+		copyText.select();
+		navigator.clipboard.writeText(copyText.value);
+	}
+  </script>
+</body>
+</html>
